@@ -4,7 +4,22 @@ import (
 	"testing"
 )
 
+
 var app = "github.com/lunixbochs/go-keychain/test"
+
+func TestError(t *testing.T){
+
+    _, err := Find(app, "IDONTEXIST")
+    if err == nil {
+        t.Fatal("Found password IDONTEXIST?")
+    }
+
+    if err.Error() == "Unknown error" {
+        t.Fatal("Error should not be 'Unknown error'")
+    }
+
+    t.Logf("error was '%q'\n", err)
+}
 
 func TestFlow(t *testing.T) {
 	err := Add(app, "testuser", "password")
